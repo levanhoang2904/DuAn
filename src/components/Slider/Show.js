@@ -1,10 +1,17 @@
 import styles from './show.module.scss';
 
-function Show(images) {
+function Show({ imageitem }) {
     return (
         <div className={styles.wrap}>
-            <img src={images.url} alt={images.alt} className={`${styles.img}`} />
+            <img src={imageitem.image} alt={imageitem.alt} className={`${styles.img}`} />
         </div>
+        // {images.map((image) => {
+        //     return (
+        //         <div className={styles.imageitem}>
+        //             <img src={image.image} />
+        //         </div>
+        //     );
+        // })}
     );
 }
 

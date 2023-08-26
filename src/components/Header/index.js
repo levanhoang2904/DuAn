@@ -1,9 +1,17 @@
 import styles from './header.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCartShopping, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping, faMagnifyingGlass, faUser } from '@fortawesome/free-solid-svg-icons';
 import Login from '../login';
-import { useState } from 'react';
-function Header({ onHandleClick, onClickAppearSign, onClickAppearRegis }) {
+import Logo from '~/assets/img/Logo.png';
+import { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { name } from '../signin';
+import { lengthContext } from '~/context/LengthCart';
+function Header({ onHandleClick, onClickAppearSign, onClickAppearRegis, onChangActive, activelog}) {
+   
+    const value = useContext(lengthContext)
+    
+    // value.getcart()
     const appearSign = () => {
         onHandleClick();
         onClickAppearSign();
@@ -13,14 +21,32 @@ function Header({ onHandleClick, onClickAppearSign, onClickAppearRegis }) {
         onHandleClick();
         onClickAppearRegis();
     };
+
+    // const [active, setActive] = useState(true);
+
+    const logout = () => {
+        value.resetLength()
+        onChangActive();
+    };
+
+    // const logged = () => {
+    //     setActive(!active);
+    // };
+    const [key, setKey] = useState("")
     return (
         <div className={styles.header}>
-            <div className={styles.login}></div>
+            <div className={styles.logo}>
+                <Link to="/">
+                    <img src={Logo} alt='' />
+                </Link>
+            </div>
             <div className={styles.right}>
                 <div className={styles.search}>
                     <label>Nhập để tìm kiếm</label>
                     <div className={styles.input}>
-                        <input placeholder="Nhập để tìm kiếm" />
+                        <form action = {`/search/${key}`} >
+                        <input placeholder="Nhập để tìm kiếm" name = 'key' onChange={(e) => {setKey(e.target.value); console.log(key)}} />
+                        </form>
                         <div className={styles.searchsuggest}>
                             <li>Card đồ họa nvidia</li>
                             <li>Card đồ họa nvidia</li>
@@ -36,20 +62,35 @@ function Header({ onHandleClick, onClickAppearSign, onClickAppearRegis }) {
                 </div>
 
                 <div className={styles.left}>
-                    <div className={styles.cart}>
+                    <Link to="/carts" className={styles.cart}>
                         <FontAwesomeIcon className={styles.iconCart} icon={faCartShopping} />
-                        <p>Giỏ hàng</p>
-                    </div>
+                        <div className={styles.ammount}>{value.length}</div>
+                    </Link>
 
                     <div className={styles.account}>
-                        <div className={styles.login}>
-                            <div className={styles.signin}>
-                                <button onClick={appearSign}>Đăng nhập</button>
+                        {activelog ? (
+                            <div className={styles.loginactive}>
+                                <FontAwesomeIcon icon={faUser} />
+                                <div className={styles.name}>{name}</div>
+                                <button onClick={logout} className={styles.logout}>
+                                    Đăng xuất
+                                </button>
                             </div>
-                            <div className={styles.register}>
-                                <button onClick={appearRegis}>Đăng ký</button>
+                        ) : (
+                            <div className={styles.login}>
+                                <div className={styles.signin}>
+                                    <button onClick={appearSign}>Đăng nhập</button>
+                                </div>
+                                <div className={styles.register}>
+                                    <button onClick={appearRegis}>Đăng ký</button>
+                                </div>
                             </div>
-                        </div>
+                        )}
+
+                        {/* <div className={styles.loginactive}>
+                            <FontAwesomeIcon icon={faUser} />
+                            <div className={styles.name}>Văn Hoàng</div>
+                        </div> */}
                     </div>
                 </div>
             </div>
@@ -58,3 +99,4 @@ function Header({ onHandleClick, onClickAppearSign, onClickAppearRegis }) {
 }
 
 export default Header;
+ 

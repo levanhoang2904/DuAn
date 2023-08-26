@@ -1,10 +1,9 @@
 .sidebar {
-    margin: 20px 0;
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     max-width: 100%;
-    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-width: 200px;
 
     .category {
         position: absolute;

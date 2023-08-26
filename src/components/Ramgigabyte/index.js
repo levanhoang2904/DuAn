@@ -1,7 +1,7 @@
-import styles from '~/components/SiderBar/sidebar.module.scss';
-import style from '~/components/SiderBar/category/category.module.scss';
 import rams from '~/assets/ramgigabyte';
 import Categorys from '~/components/SiderBar/category';
+import styles from '~/pages/Card/card.module.scss';
+
 function RamGigabyte() {
     return (
         <div className={styles.categorys}>

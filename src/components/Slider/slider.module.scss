@@ -6,36 +6,4 @@
     margin-top: calc(var(--height-header) + 30px);
     overflow: hidden;
     max-width: 100%;
-
-    .icon {
-        position: absolute;
-        color: white;
-        font-size: 16px;
-        top: 50%;
-        background-color: rgba($color: white, $alpha: 0.07);
-        padding: 20px 20px;
-        cursor: pointer;
-        transform: translateY(-50%);
-        border-radius: 40%;
-        display: none;
-
-        &:hover {
-            background-color: #fff;
-            color: black;
-        }
-    }
-
-    &:hover .icon {
-        display: block;
-    }
-
-    .right {
-        position: absolute;
-        right: 0;
-        margin-right: 20px;
-    }
-
-    .left {
-        margin-left: 20px;
-    }
 }

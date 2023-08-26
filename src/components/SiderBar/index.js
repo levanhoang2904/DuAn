@@ -5,15 +5,9 @@ import ramImage from '~/assets/img/ram.png';
 import ssdImage from '~/assets/img/ssd.png';
 import cardImage from '~/assets/img/vga.png';
 import keyboardImage from '~/assets/img/banphim.png';
-import Categorys from './category';
+
 import { Link, Route } from 'react-router-dom';
-import { BrowserRouter as Router, Routes } from 'react-router-dom';
-import Ram from '~/pages/RamKingston';
-import Categorysale from './CategorySale';
-import card from '~/assets/card';
-import { useEffect, useState } from 'react';
-import Card from '~/pages/Card';
-import RamGigabyte from '../Ramgigabyte';
+
 function Sidebar() {
     return (
         <div className={styles.sidebar}>
@@ -95,7 +89,7 @@ function Sidebar() {
                     <div className={styles.categorylist}>
                         <img className={styles.iconlist} src={cardImage} />
                         <span>
-                            Card
+                            <Link to = "/card">Card</Link>
                             <div className={styles.ramlists}>
                                 <div className={styles.ramlist}>
                                     <Link to="">Card Asus</Link>
@@ -179,13 +173,13 @@ function Sidebar() {
                     </div>
                 </div>
             </div>
-            <Routes>
-                <Route path="/" element={<Card />} />
-                <Route path="/RamKingston" element={<Ram />} />
-                <Route path="/RamGigabyte" element={<RamGigabyte />} />
-            </Routes>
+            {/* <Routes>
+                    <Route path="/" element={<Card />} />
+                    <Route path="/RamKingston" element={<Ram />} />
+                    <Route path="/RamGigabyte" element={<RamGigabyte />} />
+                </Routes> */}
 
-            <Categorysale />
+            {/* <Categorysale /> */}
         </div>
     );
 }

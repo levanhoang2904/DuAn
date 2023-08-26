@@ -2,8 +2,42 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './signin.module.scss';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { faFacebook, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { useContext, useEffect, useState } from 'react';
+import { lengthContext } from '~/context/LengthCart';
+let name = "";
+function Singin({ onClickHidden, onHandleLogged }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const value = useContext(lengthContext)
+    
+    const handleLogin = () => {
+        try {
+             fetch('http://localhost:3000/logins', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            })
+                .then((res) => {
+                    if (res.status === 200) {
+                        return res.json();
+                    }
+                })
 
-function Singin({ onClickHidden }) {
+                .then((data) => {
+                    if (data) {
+                        name = data.name[0].Hoten
+                        onClickHidden();
+                        onHandleLogged();
+                        value.getcart()
+                    }
+                    return data;
+                });
+        } catch (error) {
+            console.error('Lỗi đăng nhập:', error.message);
+        }
+    };
     return (
         <div className={styles.singin}>
             <div className={styles.header}>
@@ -15,17 +49,22 @@ function Singin({ onClickHidden }) {
                 <div className={styles.email}>
                     <label>Email</label>
 
-                    <input placeholder="Email" type="text" />
+                    <input name="taikhoan" placeholder="Email" type="email" onChange={(e) => setEmail(e.target.value)} />
                 </div>
 
                 <div className={styles.password}>
                     <label>Mật khẩu</label>
-                    <input placeholder="Mật Khẩu" type="password" />
+                    <input
+                        name="pass"
+                        placeholder="Mật Khẩu"
+                        type="password"
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
             </form>
             <span className={styles.forgotpas}>Quên Mật Khẩu?</span>
 
-            <button className={styles.button}>
+            <button onClick={handleLogin} className={styles.button}>
                 <div className={styles.btnlogin}>Đăng nhập</div>
             </button>
 
@@ -54,3 +93,4 @@ function Singin({ onClickHidden }) {
 }
 
 export default Singin;
+export {name}
